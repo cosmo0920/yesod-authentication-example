@@ -10,17 +10,18 @@ import           Yesod
 import           Yesod.Auth
 import           Yesod.Auth.GoogleEmail2
 import           Yesod.Auth.OpenId           (authOpenId, IdentifierType (Claimed))
+import           LoadEnv
+import           System.Environment          (getEnv)
+import qualified Data.Text as T
 
--- Replace with Google client ID.
-clientId :: Text
-clientId = ""
-
--- Replace with Google secret ID.
-clientSecret :: Text
-clientSecret = ""
+data GoogleLoginKeys = GoogleLoginKeys
+    { googleLoginClientId :: Text
+    , googleLoginClientSecret :: Text
+    }
 
 data App = App
     { httpManager :: Manager
+    , googleLoginKeys :: GoogleLoginKeys
     }
 
 mkYesod "App" [parseRoutes|
@@ -42,7 +43,7 @@ instance YesodAuth App where
 
     authPlugins m =
         [ authOpenId Claimed []
-        , authGoogleEmail clientId clientSecret
+        , authGoogleEmail (googleLoginClientId $ googleLoginKeys m) (googleLoginClientSecret $ googleLoginKeys m)
         ]
 
     authHttpManager = httpManager
@@ -70,5 +71,15 @@ getHomeR = do
 
 main :: IO ()
 main = do
+    loadEnv -- load from .env
+    googleLoginKeys <- getGoogleLoginKeys
+
     man <- newManager
-    warp 3000 $ App man
+    warp 3000 $ App man googleLoginKeys
+      where
+        getGoogleLoginKeys :: IO GoogleLoginKeys
+        getGoogleLoginKeys = GoogleLoginKeys
+          <$> getEnvT "GOOGLE_LOGIN_CLIENT_ID"
+          <*> getEnvT "GOOGLE_LOGIN_CLIENT_SECRET"
+          where
+            getEnvT = fmap T.pack . getEnv
