@@ -24,6 +24,11 @@ GOOGLE_LOGIN_CLIENT_ID=YOUR_CLIENT_ID
 GOOGLE_LOGIN_CLIENT_SECRET=YOUR_CLIENT_SECRET
 ```
 
+### Related Articles
+
+* Yesodでの認証のしくみについて
+http://qiita.com/cosmo0920/items/1abeffb52eaabcd007f9
+
 ### LICENSE
 
 [MIT](LICENSE).
