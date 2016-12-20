@@ -19,7 +19,6 @@ executable         yesod-auth-sample
                      , text                          >= 0.11       && < 2.0
                      , shakespeare                   >= 2.0        && < 2.1
                      , http-conduit                  >= 2.1        && < 2.2
-                     , data-default
                      , conduit                       >= 1.0        && < 2.0
                      , load-env
 
