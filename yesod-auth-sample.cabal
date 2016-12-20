@@ -1,0 +1,26 @@
+name:              yesod-auth-sample
+version:           0.1.0.0
+cabal-version:     >= 1.8
+build-type:        Simple
+
+Flag dev
+    Description:   Turn on development settings, like auto-reload templates.
+    Default:       False
+
+executable         yesod-auth-sample
+    main-is:           yesod-auth-sample.hs
+    hs-source-dirs:    .
+    build-depends:     base
+                     , yesod                         >= 1.4        && < 1.5
+                     , yesod-core                    >= 1.4        && < 1.5
+                     , yesod-auth                    >= 1.4        && < 1.5
+                     , yesod-form                    >= 1.3        && < 1.5
+                     , template-haskell
+                     , text                          >= 0.11       && < 2.0
+                     , shakespeare                   >= 2.0        && < 2.1
+                     , http-conduit                  >= 2.1        && < 2.2
+                     , data-default
+                     , conduit                       >= 1.0        && < 2.0
+                     , load-env
+
+    ghc-options:       -threaded -O2

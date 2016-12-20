@@ -1,0 +1,11 @@
+resolver: lts-3.11
+
+packages:
+  - '.'
+
+extra-deps:
+  - load-env-0.1.1
+
+flags: {}
+
+extra-package-dbs: []
