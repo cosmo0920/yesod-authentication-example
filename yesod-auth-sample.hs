@@ -8,7 +8,16 @@ import           Data.Text                   (Text)
 import           Network.HTTP.Client.Conduit (Manager, newManager)
 import           Yesod
 import           Yesod.Auth
+import           Yesod.Auth.GoogleEmail2
 import           Yesod.Auth.OpenId           (authOpenId, IdentifierType (Claimed))
+
+-- Replace with Google client ID.
+clientId :: Text
+clientId = ""
+
+-- Replace with Google secret ID.
+clientSecret :: Text
+clientSecret = ""
 
 data App = App
     { httpManager :: Manager
@@ -33,6 +42,7 @@ instance YesodAuth App where
 
     authPlugins m =
         [ authOpenId Claimed []
+        , authGoogleEmail clientId clientSecret
         ]
 
     authHttpManager = httpManager
